@@ -1,0 +1,50 @@
+Traces files contain at leat 200000 memory accesses
+    1) trace file of a program of your choice (for example the "ls" command) //fait install pin and do the same command as it is inside the file
+    2) program tha multiples two large matrices // in process need to put comment and rearrange so that he can meet the evaluation criteria (correctness, quality of comments, organization)
+
+cache simulator
+      must simulate a 4-way associative memory cache with 64-byte cache blocks
+
+      replacement policy: take  moodle correction
+	In the project description, i have suggested to use an access flag for each slot. When
+	the cache line is accessed, the flag is set. To make this working properly, slots would
+	start with the flag not set. Furthermore, the flag should be reset periodically, otherwise
+	it will often happen that all slots have the flag set after a few accesses. For a replacement
+	the cache woulds preferably select a slot without the flag set.
+	Alternatively, you can implement your own strategy, for example real LRU or LFU.
+	In any cae, give a short description of your strategy in the project report
+
+     write accesses should be treated as write-through-write-around. this basically means that your
+     simulator can ignore write accesse because they do not affect the cache contents(however, they will
+     set the access flag if the accessed block is in the cache)
+
+     Stream prefetcher: if a cache block is read-accessed, the cache should prefetch automatically the
+     next cache block.Note that the block might be already in the cache
+
+Your program must accept the following parameters from the command line:
+    file name of the input trace file
+    number of cache rows
+    a flag indicating whether prefetching is enabled(value 1) or disables(value 0)
+    for example java Mychachesimulator trace.txt 16 1
+    
+the output
+The simulator should print the achieved hit rate: A read access is a "hit" if the accessed location is 
+in the cache. As already said, you can ignore write accesses
+
+don't forget to read the remark about unsigned 64-bit numbers in java
+
+the delivrable
+single zip contain:
+    the java source code of the simulator
+    the C source code of your own program that you have traced with pin
+    the report
+
+
+the report
+   report(A4, 11pt, PDF format, maximum 3 pages) contain
+	1)the names of the group members
+	2)an explanation what trace files have been used and how big they were
+	3)figures/plots showing the hit rates obtained for the traces
+		with differend cache sizes. Test cache sizes
+		with and without prefetching
+        4)a discussion on what would be a good cache configuration for your traces based of presented data in point 3
