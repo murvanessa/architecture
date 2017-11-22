@@ -8,20 +8,11 @@ void display(int mult[][100], int rowfirst, int columnsecond);
 
 int main(){
     int firstmatrix[100][100], secondmatrix[100][100], mult[100][100], rowfirst, columnfirst, rowsecond, columnsecond, i,j,k;
-
-    printf("enter rows and column for first matrix :");
-    scanf("%d %d", &rowfirst, &columnfirst);
-
-    printf("enter rows and column for second matrix :");
-    scanf("%d %d", &rowsecond, &columnsecond);
-
-    if(columnfirst != rowsecond){
-        printf("Error! column of first matrix not equal to row of second\n");
-        printf("Enter rows and column for first matrix :");
-        scanf("%d %d", &rowfirst, &columnfirst);
-        printf("enter rows and column for second matrix :");
-        scanf("%d %d", &rowsecond, &columnsecond);
-    }else{
+	rowfirst = 20;
+    	columnfirst = 20;
+    	rowsecond = 20;
+    	columnsecond = 20;
+	
         enterDate(firstmatrix, secondmatrix, rowfirst, columnfirst, rowsecond, columnsecond);
         multiply(firstmatrix, secondmatrix, mult, rowfirst, columnfirst, rowsecond, columnsecond);
         display(mult, rowfirst, columnfirst);
