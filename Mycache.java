@@ -44,9 +44,6 @@ public class Mycache
         			A=A.replace("0x", "");
         			Long C=Long.parseLong(A,16);
         			String B=C.toBinaryString(C);
-        			System.out.println("l adresse entiere est :"+B);
-        			
-        			// boucle pour recuperer le numero du set
         			indexs="";
         			for(int h=B.length()-10;h<B.length()-5;h++)
         			{
@@ -68,43 +65,33 @@ public class Mycache
         				tagint=Integer.parseInt(tags,2);
         			}
         			
-        			//boucle pour parcourir la memoire pour trouver la ligne du set
-        			
         			for (int i=0;i<32;i++)
-        			{     				
+        			{  System.out.println("mon nouveau slot est pout i:  "+i+"    il la le flag="+Cacheinstance.getslot(i,0).getFlag());
+					
         				if(i==indint)
-        				{
+        				{System.out.println("----------------------------------- avec i="+i);
         					for(int l=0;l<4;l++)
-        					{
-        						System.out.println("le suivant ind int:"+Cacheinstance.get(15,0).getFlag());
-        						if(Cacheinstance.get(i,l).getFlag()==0)
-        						{
+        					{System.out.println("mon  i:  "+i+"mon  l:  "+l+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
+        						if(Cacheinstance.getslot(i,l).getFlag()==0)
+        						{      		
+        							Cacheinstance.getslot(i, l).setFlag(1);
+        							System.out.println("mon nouveau slot est pout i:  "+i+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
         							
-        							Cacheinstance.get(i,l).setTag(tagint);
-        							Cacheinstance.get(i,l).setFlag(2);
-        							System.out.println("yes yes yes");
-        							System.out.println("tag:"+tagint);
-        							System.out.println("offset:"+offint);
-        							System.out.println("current flag:"+Cacheinstance.get(i,l).getFlag());
-        							Cacheinstance.get(i,l).setOffset(offint);
+        							
+        							break;
         						}
         						
-        					}
-        					
+        						
+        					}        					
         				}
+        				
         			}
-        		
+        						
         			
-        			
-        			//System.out.println("offset=  "+offset+"   en int ca donne :"+offint);
-        			
-        			//System.out.println("");
-        			//System.out.println("index=  "+indexs+"    en int ca donne :"+indint);
-        			
-        			
-        			//System.out.println("tag=  "+tags+"    en int ca donne :"+tagint);
-        			
-        		
+        			System.out.println("");
+    				System.out.println("");
+        			System.out.println("");
+    				System.out.println("");
         		
         		}
         
