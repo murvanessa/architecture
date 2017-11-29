@@ -4,7 +4,8 @@ public class Cache
 	private static Myslot Cache[][];
 	public Cache(int Numberofsets,int setAssociative)
 	{	
-	    	this.Cache=new Myslot[Numberofsets][setAssociative];
+	    	Cache=new Myslot[Numberofsets][setAssociative];
+	    	
 	      	for(int i=0;i<Numberofsets;i++) 
 	      	{
 	      		for(int j=0;j<setAssociative;j++)
@@ -13,12 +14,18 @@ public class Cache
 	      		}
 	      	}			
 	 }
-	public Myslot get(int i,int j)
+	public Myslot getslot(int i,int j)
 	{
+		//System.out.println("je suis dans cache.getslot: i="+i+" j="+j);
 		return Cache[i][j];
 	}
 	public void put(int a,int b,int c,int d,int e)
+	
 	{
-		Cache[a][b]=new Myslot(a,b,c,d,e);
+		
+		getslot(a,b).setFlag(1);
+		getslot(a,b).setTag(c);
+		getslot(a,b).setOffset(e);
 	}
+	
 }
