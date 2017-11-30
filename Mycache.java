@@ -15,7 +15,7 @@ public class Mycache
 {
 	static int hits = 0;
 	static int miss = 0;
-	boolean isEmpty = true;
+	static boolean ispresent = true;
 	
 	private static long getCurrentTime() {
         Date date = new Date(System.currentTimeMillis());
@@ -81,19 +81,18 @@ public class Mycache
 					
         				if(i==indint)
         				{System.out.println("----------------------------------- avec i="+i);
-        					for(int l=0;l<4;l++)
-        					{
+        					for(int l=0;l<4;l++){
         							System.out.println("mon  i:  "+i+"mon  l:  "+l+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
             						if(Cacheinstance.getslot(i,l).getFlag()==0) {
-            							Cacheinstance.getslot(i, l).setFlag(1);
-            							Cacheinstance.getslot(i, l).setTime((int)getCurrentTime());
+            							Cacheinstance.put(i, l, tagint, 1, offint, (int)getCurrentTime());
             							System.out.println("mon nouveau slot est pour i:  "+i+"    il la le flag=  "+Cacheinstance.getslot(i,0).getFlag() + "  le temps d'accès " + Cacheinstance.getslot(i, l).getTime());
             							miss= miss+1;
+            							ispresent = true;
             							System.out.println("nouveau miss :"+miss);
             							break;
             						}
             						else {
-            							if(Cacheinstance.getslot(i, l).getTag() == Cacheinstance.getslot(i, l).getTag() && Cacheinstance.getslot(i,l).getOffset() == offint) {
+            							if(Cacheinstance.getslot(i, l).getTag() == tagint && Cacheinstance.getslot(i,l).getOffset() == offint) {
             								hits = hits+1;
             								System.out.println("nouveau hits :"+hits);
             							}
@@ -119,5 +118,4 @@ public class Mycache
         
         }
 	}
-
 
