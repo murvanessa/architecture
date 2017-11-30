@@ -13,6 +13,17 @@ import java.lang.*;
 
 public class Mycache 
 {
+	static int hits = 0;
+	static int miss = 0;
+	boolean isEmpty = true;
+	
+	private static long getCurrentTime() {
+        Date date = new Date(System.currentTimeMillis());
+        return date.getTime();
+	}
+	
+	 
+	
 	public static void main(String[] args) throws IOException, ParseException
 	{ 
 		System.out.println("test");
@@ -37,7 +48,7 @@ public class Mycache
         {
         	//total=total+1;
         	String chaine[] = ligne.split("\\s");
-        	String w="W";
+        	String w="R";
         		if(chaine[1].equals(w))
         		{
         			String A=chaine[2];
@@ -66,23 +77,31 @@ public class Mycache
         			}
         			
         			for (int i=0;i<32;i++)
-        			{  System.out.println("mon nouveau slot est pout i:  "+i+"    il la le flag="+Cacheinstance.getslot(i,0).getFlag());
+        			{  System.out.println("the new slot is i:  "+i+"    il la le flag="+Cacheinstance.getslot(i,0).getFlag());
 					
         				if(i==indint)
         				{System.out.println("----------------------------------- avec i="+i);
         					for(int l=0;l<4;l++)
-        					{System.out.println("mon  i:  "+i+"mon  l:  "+l+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
-        						if(Cacheinstance.getslot(i,l).getFlag()==0)
-        						{      		
-        							Cacheinstance.getslot(i, l).setFlag(1);
-        							System.out.println("mon nouveau slot est pout i:  "+i+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
+        					{
+        							System.out.println("mon  i:  "+i+"mon  l:  "+l+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
+            						if(Cacheinstance.getslot(i,l).getFlag()==0) {
+            							Cacheinstance.getslot(i, l).setFlag(1);
+            							Cacheinstance.getslot(i, l).setTime((int)getCurrentTime());
+            							System.out.println("mon nouveau slot est pour i:  "+i+"    il la le flag=  "+Cacheinstance.getslot(i,0).getFlag() + "  le temps d'accès " + Cacheinstance.getslot(i, l).getTime());
+            							miss= miss+1;
+            							System.out.println("nouveau miss :"+miss);
+            							break;
+            						}
+            						else {
+            							if(Cacheinstance.getslot(i, l).getTag() == Cacheinstance.getslot(i, l).getTag() && Cacheinstance.getslot(i,l).getOffset() == offint) {
+            								hits = hits+1;
+            								System.out.println("nouveau hits :"+hits);
+            							}
+            						}
         							
-        							
-        							break;
         						}
         						
-        						
-        					}        					
+        					}
         				}
         				
         			}
@@ -94,9 +113,10 @@ public class Mycache
     				System.out.println("");
         		
         		}
+        System.out.println("no of hits : "+hits);
+		System.out.println("no of miss : "+miss);
+		System.out.println("hit ratio : "+(hits*100)/(hits+miss));
         
-        	}
-    
         }
 	}
 
