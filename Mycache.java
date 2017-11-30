@@ -15,7 +15,9 @@ public class Mycache
 {
 	static int hits = 0;
 	static int miss = 0;
-	static boolean ispresent = true;
+	static boolean ispresent = false;
+	int total = 0;
+	static int count = 0;
 	
 	private static long getCurrentTime() {
         Date date = new Date(System.currentTimeMillis());
@@ -51,6 +53,7 @@ public class Mycache
         	String w="R";
         		if(chaine[1].equals(w))
         		{
+        			count++;
         			String A=chaine[2];
         			A=A.replace("0x", "");
         			Long C=Long.parseLong(A,16);
@@ -80,25 +83,46 @@ public class Mycache
         			{  System.out.println("the new slot is i:  "+i+"    il la le flag="+Cacheinstance.getslot(i,0).getFlag());
 					
         				if(i==indint)
-        				{System.out.println("----------------------------------- avec i="+i);
+        				{ispresent = false;
+        					System.out.println("----------------------------------- avec i="+i);
         					for(int l=0;l<4;l++){
         							System.out.println("mon  i:  "+i+"mon  l:  "+l+"    il la le flag="+Cacheinstance.getslot(i,l).getFlag());
             						if(Cacheinstance.getslot(i,l).getFlag()==0) {
             							Cacheinstance.put(i, l, tagint, 1, offint, (int)getCurrentTime());
             							System.out.println("mon nouveau slot est pour i:  "+i+"    il la le flag=  "+Cacheinstance.getslot(i,0).getFlag() + "  le temps d'accès " + Cacheinstance.getslot(i, l).getTime());
             							miss= miss+1;
-            							ispresent = true;
             							System.out.println("nouveau miss :"+miss);
+            							ispresent = true;
+            							System.out.println("is it present :"+ispresent);
             							break;
             						}
             						else {
             							if(Cacheinstance.getslot(i, l).getTag() == tagint && Cacheinstance.getslot(i,l).getOffset() == offint) {
+            								Cacheinstance.put(i, l, tagint, 1, offint, (int)getCurrentTime());
+            								System.out.println("mon nouveau slot est pour i:  "+i+"    il la le flag=  "+Cacheinstance.getslot(i,0).getFlag() + "  le temps d'accès " + Cacheinstance.getslot(i, l).getTime());
             								hits = hits+1;
             								System.out.println("nouveau hits :"+hits);
+            								ispresent = true;
+            								break;
             							}
             						}
         							
         						}
+        					if(!ispresent) {
+        						int lru = 0;
+        						for(int k=0;k<3;k++) {
+        							if(Cacheinstance.getslot(i, lru).getTime() < Cacheinstance.getslot(i, k).getTime()) {
+        								lru = k;
+        								
+        							}
+        							Cacheinstance.put(i, lru, tagint, 1, offint, (int)getCurrentTime());
+    								miss = miss+1;
+    								System.out.println("mon nouveau slot est pour i:  "+i+"    il la le flag=  "+Cacheinstance.getslot(i,lru).getFlag() + "  le temps d'accès " + Cacheinstance.getslot(i, lru).getTime());
+    								break;
+        						}
+        						
+        					}
+        					
         						
         					}
         				}
@@ -114,8 +138,9 @@ public class Mycache
         		}
         System.out.println("no of hits : "+hits);
 		System.out.println("no of miss : "+miss);
+		System.out.println("total : "+(miss+hits));
+		System.out.println("total count : "+count);
 		System.out.println("hit ratio : "+(hits*100)/(hits+miss));
         
         }
 	}
-
