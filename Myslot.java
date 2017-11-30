@@ -1,14 +1,14 @@
-
 public class Myslot 
 {
 	 public int []slot;
 	
-	public Myslot(int a,int b,int c,int d,int e)
+	public Myslot(int a,int b,int c,int d,int e, int time)
 	{
-		slot=new int[3];
+		slot=new int[4];
 		slot[0]=c;
 		slot[1]=d;
 		slot[2]=e;
+		slot[3]= time;
 	}
 
 	public  int getTag() {
@@ -35,8 +35,17 @@ public class Myslot
 		slot[2] = a;
 	}
 	
+	public  int getTime() {
+		return slot[3];
+	}
+
+	public  void setTime(int time) {
+		slot[3] = time;
+	}
+	
+	
 	public String toString() {
-		return "Tag: "+slot[0]+" offset: "+slot[1]+" Flag: "+slot[2];
+		return "Tag: "+slot[0]+" offset: "+slot[1]+" Flag: "+slot[2]+ " time: "+slot[3];
 	}
 	
 	
