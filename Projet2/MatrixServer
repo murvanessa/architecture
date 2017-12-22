@@ -52,7 +52,7 @@ public class MatrixServer {
 		MatrixServer matrixserver = new MatrixServer();
 		matrixserver.setSocket(socket);
 		matrixserver.execute();
-		System.out.println("Math Server is closed...");
+		System.out.println("Matrix Server is closed...");
 		}
 
 }
