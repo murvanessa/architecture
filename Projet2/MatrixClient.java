@@ -67,7 +67,20 @@ public class MatrixClient {
 			writer.flush();
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(socket.getInputStream()));
-			System.out.println(reader.readLine());
+			String line = reader.readLine();
+			System.out.println(line);
+			String [] elements = line.split("/");
+			int [][] Result;
+			Result = new int[elements.length][elements.length];
+			for(int i = 0; i < elements.length; i++) {
+				String[] ligne = elements[i].split(" ");
+				for(int j =0; j< elements.length; j++) {
+					Result[i][j] = Integer.parseInt(ligne[j]);
+					System.out.print(ligne[j]+ " ");
+				}
+				System.out.println(" ");
+			}
+			
 			reader.close();
 			writer.close();
 			
