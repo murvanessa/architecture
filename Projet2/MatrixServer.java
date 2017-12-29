@@ -23,12 +23,22 @@ public class MatrixServer {
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			System.out.println("test");
+			String V = new String();
 			String line = reader.readLine();
 			System.out.println(line);
 			int[][] result = parseExecution(line);
+			for(int i=0; i < result.length; i++) 
+			{
+				for(int j=0; j < result.length; j++) 
+				{
+					V+= String.valueOf(result[i][j]);
+					V+=" ";
+				}
+				V+="/";
+			}
 			
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-			writer.write(""+result);
+			writer.write(V);
 			writer.newLine();
 			writer.flush();
 			// close the stream
@@ -127,7 +137,7 @@ public class MatrixServer {
 		MatrixServer matrixserver = new MatrixServer();
 		matrixserver.setSocket(socket);
 		matrixserver.execute();
-		System.out.println("Math Server is closed...");
+		System.out.println("Matrix Server is closed...");
 		}
 
 }
