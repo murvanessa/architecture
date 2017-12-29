@@ -3,17 +3,30 @@ import java.net.*;
 
 public class MatrixServer {
 	
+	protected Matrix matrix;
+	
 	protected Socket socket;
+	int mult[][];
+	int resultat =0;
+	int[][] temp;
+	
+	public void setMatriz(Matrix matrix) {
+		this.matrix = matrix;
+	}
 	
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
 	
 	public void execute()  {
+		
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			System.out.println("test");
 			String line = reader.readLine();
-			int result = parseExecution(line);
+			System.out.println(line);
+			int[][] result = parseExecution(line);
+			
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			writer.write(""+result);
 			writer.newLine();
@@ -26,13 +39,75 @@ public class MatrixServer {
 			}
 	}
 
-	private int parseExecution(String line) {
+	private int[][] parseExecution(String line) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		int Result = Integer.MAX_VALUE;
-		String [] elements = line.split(",");
-		if (elements.length != 2)
-			throw new IllegalArgumentException("parsing error!");
-		return 0;
+		int[][] Result ;
+		String [] elements = line.split("/");
+		Result = new int[elements.length-1][elements.length-1];
+		int puissance=Integer.parseInt(elements[elements.length-1]);
+		System.out.println(puissance);
+		for(int i = 0; i < elements.length-1; i++) {
+			String[] ligne = elements[i].split(" ");
+			for(int j =0; j< elements.length-1; j++) {
+				Result[i][j] = Integer.parseInt(ligne[j]);
+				System.out.print(ligne[j]+ " ");
+			}
+			System.out.println(" ");
+		}
+		temp = new int[elements.length-1][elements.length-1];
+		mult = new int[elements.length-1][elements.length-1];
+		
+		for(int i = 0; i < elements.length-1; i++) 
+		{
+			for(int j =0; j<elements.length-1; j++) 
+			{
+				temp[i][j]=Result[i][j];
+		
+			}
+			
+		}
+		
+		
+		
+		
+		for(int n= 1; n< puissance; n++) 
+		{
+			for(int i = 0; i < elements.length-1; i++) 
+			{
+				for(int j =0; j<elements.length-1; j++) 
+				{
+					for(int k = 0; k< elements.length-1; k++)
+					{
+						resultat+=Result[i][k]*temp[k][j];
+					}
+					mult[i][j]=resultat;
+					resultat=0;
+				}
+			}
+			for(int i = 0; i < elements.length-1; i++) 
+			{
+				for(int j =0; j<elements.length-1; j++) 
+				{	
+					temp[i][j] = mult[i][j];
+				}
+			}
+			
+		}
+		
+		System.out.println("apres multi");
+		for(int i = 0; i < elements.length-1; i++) 
+		{
+			for(int j =0; j<elements.length-1; j++) 
+			{
+				
+				System.out.print(mult[i][j]+" ");
+		
+			}
+			System.out.println(" ");
+		}
+		
+		
+		return mult;
 	}
 	
 	public static void main(String [] args)throws Exception{
@@ -52,7 +127,7 @@ public class MatrixServer {
 		MatrixServer matrixserver = new MatrixServer();
 		matrixserver.setSocket(socket);
 		matrixserver.execute();
-		System.out.println("Matrix Server is closed...");
+		System.out.println("Math Server is closed...");
 		}
 
 }
