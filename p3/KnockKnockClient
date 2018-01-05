@@ -1,0 +1,160 @@
+/*
+ * Copyright (c) 1995, 2013, Oracle and/or its affiliates. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   - Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   - Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ *   - Neither the name of Oracle or the names of its
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */ 
+
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+import org.w3c.dom.Element;
+
+public class KnockKnockClient 
+{
+	static String V=new String();
+	public static void affiche(String line)
+	{
+	String [] elements = line.split("/");
+	int [][] Result;
+	Result = new int[elements.length][elements.length];
+	for(int i = 0; i < elements.length; i++)
+	{
+		String[] ligne = elements[i].split(" ");
+		for(int j =0; j< elements.length; j++) 
+		{
+			System.out.println("*** "+ elements.length+"****");
+			Result[i][j] = Integer.parseInt(ligne[j]);
+			System.out.print(ligne[j]+ " ");
+		}
+		System.out.println(" ");
+	}
+	}
+    public static void main(String[] args) throws IOException 
+    {
+        
+        if (args.length != 2)
+        {
+            System.err.println("Usage: java EchoClient <host name> <port number>");
+            System.exit(1);
+        }
+
+        String hostName = args[0];
+        int portNumber = Integer.parseInt(args[1]);
+        System.out.println("1111111111111111");
+
+        try (
+        		Socket kkSocket = new Socket(hostName, portNumber);
+        		PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
+        		BufferedReader in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
+        	) 
+        {
+            BufferedReader stdIn =new BufferedReader(new InputStreamReader(System.in));
+            String fromServer;
+            String fromUser;
+            System.out.println("22222222222222222222222");
+          /* while ((fromServer = in.readLine()) != null) 
+            {
+                System.out.println("Server: " + fromServer);
+                if (fromServer.equals("Bye."))
+                    break;
+                
+            }*/
+                
+                
+                int [][] A;
+    			int k;
+    			int num=1;
+    			int puissance=0;
+    			Scanner sc = new Scanner(System.in);
+    			System.out.printf("entrer le row : ");
+    			k = sc.nextInt();
+    			A=new int[k][k];
+    				for(int i =0 ; i<k; i++) 
+    				{
+    					for(int j = 0; j<k; j++) 
+    					{
+    						
+    						A[i][j] = num;
+    						num+=1;
+    					}
+    				}
+    				
+    				for(int i =0 ; i<A.length; i++) {
+    					for(int j = 0; j<A.length; j++) {
+    						System.out.print(A[i][j]+"\t");
+    					}
+    					System.out.println();
+    				}	
+    			for(int i=0; i < A.length; i++) 
+    			{
+    				for(int j=0; j < A.length; j++) 
+    				{
+    					V+= String.valueOf(A[i][j]);
+    					V+=" ";
+    				}
+    				V+="/";
+    			}
+    			
+    			String[] B= V.split("/");
+    			System.out.println(V);
+    			//Scanner sc1 = new Scanner(System.in);
+    			
+    			for(int i=0;i<10;i++)
+    			{
+    				System.out.printf("entrer la puissancppe : ");
+    				puissance = (int)(Math.random() * ((5 - 2) + 1) + 2);
+    				System.out.println("la puiis  "+puissance);
+    				V+=puissance;
+    				System.out.println("mooom  v  est   "+V);
+    				if (V != null) 
+                    {
+                        System.out.println("Client: " + V);
+                        out.println(V);
+                        affiche(fromServer = in.readLine());
+                    }
+    				V=V.substring(0, V.length()-1);
+    				
+    			}
+                          
+                
+                
+              
+                
+            }
+        
+        catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + hostName);
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to " +
+                hostName);
+            System.exit(1);
+        }
+    }
+}
