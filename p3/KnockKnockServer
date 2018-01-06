@@ -59,14 +59,15 @@ public class KnockKnockServer {
             
             // Initiate conversation with client
             KnockKnockProtocol kkp = new KnockKnockProtocol();
-            System.out.println("333333");
+            //System.out.println("Server is running.....");
+            outputLine = kkp.processInput(null);
+            out.println(outputLine);
+            
             while ((inputLine = in.readLine()) != null) 
             {
-            	   	
+            	System.out.println("Le serveur recoit  :"+inputLine);  	
                 outputLine = kkp.processInput(inputLine);
-                out.println(outputLine);
-
-                System.out.println("///////////////////"+outputLine);
+                out.println(outputLine);                
                 if (outputLine.equals("Bye."))
                     break;
             }
