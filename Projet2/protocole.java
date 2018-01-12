@@ -27,7 +27,12 @@ class protocole implements Runnable
     	if(theInput==null)
     	{
     		System.out.println("server is running ......");
-    		state=run;
+    		try {
+				is.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		
     	}
     	else 
@@ -123,8 +128,10 @@ class protocole implements Runnable
 	this.clientSocket = clientSocket;
 	this.id = id;
 	this.server = server;
+	System.out.println("");
 	System.out.println( "Connection " + id + " established with: " + clientSocket );
-	System.out.println("le thread actuel :"+Thread.currentThread().getName());
+	System.out.println("");
+	System.out.println("");
 	try {
 	    is = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 	    os = new PrintStream(clientSocket.getOutputStream());
@@ -147,18 +154,20 @@ class protocole implements Runnable
             while (true) 
             {
                 line = is.readLine();
+                if(line==null)
+                {
+                	break;
+                }
 				System.out.println( "Received from Connection " + id + "..."+line );
 				
 				if(line==s1 )
 				{
-					System.out.println("ffffffff");
 					server.stopServer();
 				    break;
 					
 				}
 				else if (line ==s2)
 				{
-					System.out.println("0000000000000");
 					break;
 				}
 				else
@@ -173,6 +182,7 @@ class protocole implements Runnable
 		            is.close();
 		            os.close();
 		            clientSocket.close();
+		            serverStop=true;
 		
 			   
 			 }
