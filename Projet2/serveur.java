@@ -53,12 +53,15 @@ public class Server
 			clientSocket = echoServer.accept();
 			pool.submit(new protocole(clientSocket, numConnections, this));
 			numConnections ++;
-	    }   
+			
+	    }  
 	    catch (IOException e) 
 	    {
 	    	pool.shutdown();
 	    	System.out.println(e);
 	    }
+	    
 	}
+	
     }
 }
