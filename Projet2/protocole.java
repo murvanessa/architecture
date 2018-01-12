@@ -165,7 +165,7 @@ class protocole implements Runnable
 				{
 				outputLine = processInput(line);
 				os.println(outputLine); 
-				break;
+				//break;
 		            
 				}}
 			
