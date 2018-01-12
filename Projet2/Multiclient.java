@@ -42,6 +42,7 @@ public class Multiclient
 	}
 	public static void main(String[] args)
     {
+		long[][] temp=new long[10][6];
 		if(args.length !=2) 
 		{
 			System.out.println("Arguments incoherent.....");
@@ -120,8 +121,7 @@ public class Multiclient
 					
 					for(int i=0;i<2;i++)
 					{
-						puissance = z+1;
-						
+						puissance = (int)(Math.random() * ((15 - 10) + 1) + 10);						
 						V+=puissance;
 						if (V != null) 
 			            {
@@ -130,10 +130,17 @@ public class Multiclient
 							System.out.println("Client envoi la matrice en dessous à la puissance " + puissance);
 							parse(V);
 							tempsdepart=System.currentTimeMillis();
+							temp[2*z+i][0]=puissance;
+							temp[2*z+i][1]=tempsdepart;
 							out.println(V);
 			                fromServer = in.readLine();
 			                tempsarrivee=System.currentTimeMillis();
+			                temp[2*z+i][2]=tempsarrivee;
 			                duree=tempsarrivee-tempsdepart;
+			                long dure=tempsarrivee-tempsdepart;
+			                temp[2*z+i][3]=dure;
+			                temp[2*z+i][4]=z+1;
+			                temp[2*z+i][5]=i+1;
 			                System.out.println();
 			                System.out.println();
 			                System.out.println("Recu du serveur  :");
@@ -143,7 +150,17 @@ public class Multiclient
 			                System.out.println("la duree de l'operation :  "+duree+"   ms");
 			                System.out.println("*****************************************************");
 			            }
-						V=V.substring(0, V.length()-1);
+						V=V.substring(0, V.length()-2);
+					}
+					for(int i=0;i<10;i++)
+					{
+						System.out.print("Client  "+temp[i][4]+"   ");
+						System.out.print("req num:      "+temp[i][5]+"   ");
+						System.out.print(temp[i][0]+"         ");
+						System.out.print(temp[i][1]+"          ");
+						System.out.print(temp[i][2]+"           ");
+						System.out.print(temp[i][3]+"           ");
+						System.out.println();
 					}
 					in.close();
 					out.close();
