@@ -6,8 +6,10 @@ public class Client
 {
 	static String V=new String();
 	
+	
 	private static void parse(String line)
 	{
+		
 		long[][] Result ;
 		String [] elements = line.split("/");		
 		Result = new long[elements.length-1][elements.length-1];
@@ -73,8 +75,7 @@ public class Client
 			{
 				V=Integer.toString(k);
 				out.println(V);
-				break;
-				
+				break;				
 			}
 			else
 			{
@@ -106,8 +107,8 @@ public class Client
 			
 			String[] B= V.split("/");
 			System.out.println("la matrice saisie est :"+V);
-			
-			for(int i=0;i<200;i++)
+			long[][] temp=new long[10][4];
+			for(int i=0;i<10;i++)
 			{
 				puissance = (int)(Math.random() * ((15 - 10) + 1) + 10);
 				
@@ -119,10 +120,15 @@ public class Client
 					System.out.println("Client envoi la matrice en dessous à la puissance " + puissance);
 					parse(V);
 					tempsdepart=System.currentTimeMillis();
+					temp[i][0]=puissance;
+					temp[i][1]=tempsdepart;
 					out.println(V);
 	                fromServer = in.readLine();
 	                tempsarrivee=System.currentTimeMillis();
+	                temp[i][2]=tempsarrivee;
 	                duree=tempsarrivee-tempsdepart;
+	                long dure=tempsarrivee-tempsdepart;
+	                temp[i][3]=dure;
 	                System.out.println();
 	                System.out.println();
 	                System.out.println("Recu du serveur  :");
@@ -133,6 +139,14 @@ public class Client
 	                System.out.println("*****************************************************");
 	            }
 				V=V.substring(0, V.length()-2);
+			}
+			for(int i=0;i<10;i++)
+			{
+				System.out.print(temp[i][0]+"         ");
+				System.out.print(temp[i][1]+"          ");
+				System.out.print(temp[i][2]+"           ");
+				System.out.print(temp[i][3]+"           ");
+				System.out.println();
 			}
 			in.close();
 			out.close();
