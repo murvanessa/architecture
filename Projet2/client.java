@@ -42,12 +42,14 @@ public class Client
 	}
 	public static void main(String[] args) 
     {
-    	long tempsdepart=0;
+    	for(int z=0;z<5;z++)
+    	{
+		long tempsdepart=0;
     	long tempsarrivee=0;
     	long duree=0;
 	
-	String hostname = "localhost";
-	int port = 6789;
+		String hostname = "localhost";
+		int port = 6789;
 	
         Socket clientSocket = null;  
         DataOutputStream os = null;
@@ -72,7 +74,7 @@ public class Client
 		int puissance=0;
 		Scanner sc = new Scanner(System.in);
 		System.out.printf("entrer le row : ");
-		k = sc.nextInt();
+		k = 3;
 		if(k==-1 ||k==0)
 		{
 			V=Integer.toString(k);
@@ -111,9 +113,9 @@ public class Client
 		String[] B= V.split("/");
 		System.out.println("la matrice saisie est :"+V);
 		
-		for(int i=0;i<150;i++)
+		for(int i=0;i<2;i++)
 		{
-			puissance = 8;
+			puissance = z+1;
 			
 			V+=puissance;
 			if (V != null) 
@@ -138,12 +140,19 @@ public class Client
             }
 			V=V.substring(0, V.length()-1);
 		}
-		}
-	    }
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++       "+  z    +"          ++++++++++++++++++");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	    out.close();
+	   
+		} 
+		break;
+	    }V="";
 	} catch (UnknownHostException e) {
 	    System.err.println("Trying to connect to unknown host: " + e);
 	} catch (IOException e) {
 	    System.err.println("IOException:  " + e);
 	}
-    }           
-}
+	 }           
+}}
