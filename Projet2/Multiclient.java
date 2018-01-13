@@ -42,14 +42,15 @@ public class Multiclient
 	}
 	public static void main(String[] args)
     {
-		long[][] temp=new long[10][6];
+		int nbrClient = Integer.parseInt(args[0]);
+		long[][] temp=new long[nbrClient*2][6];
 		if(args.length !=2) 
 		{
 			System.out.println("Arguments incoherent.....");
 		}
 		else 
 		{
-			int nbrClient = Integer.parseInt(args[0]);
+			
 			double rate=Double.parseDouble(args[1]);
 		
     	for(int z=0;z<nbrClient;z++)
@@ -152,16 +153,7 @@ public class Multiclient
 			            }
 						V=V.substring(0, V.length()-2);
 					}
-					for(int i=0;i<10;i++)
-					{
-						System.out.print("Client  "+temp[i][4]+"   ");
-						System.out.print("req num:      "+temp[i][5]+"   ");
-						System.out.print(temp[i][0]+"         ");
-						System.out.print(temp[i][1]+"          ");
-						System.out.print(temp[i][2]+"           ");
-						System.out.print(temp[i][3]+"           ");
-						System.out.println();
-					}
+					
 					in.close();
 					out.close();
 					kkSocket.close();
@@ -170,7 +162,7 @@ public class Multiclient
 					break;
 					
 				}V="";
-		    
+				
 	    
 					    
 					} catch (UnknownHostException e) {
@@ -178,6 +170,15 @@ public class Multiclient
 					} catch (IOException e) {
 					    System.err.println("IOException:  " + e);
 					}
-    	}           
+    	}           for(int i=0;i<nbrClient*2;i++)
+		{
+			System.out.print("Client  "+temp[i][4]+"   ");
+			System.out.print("req num:      "+temp[i][5]+"   ");
+			System.out.print(temp[i][0]+"         ");
+			System.out.print(temp[i][1]+"          ");
+			System.out.print(temp[i][2]+"           ");
+			System.out.print(temp[i][3]+"           ");
+			System.out.println();
+		}
 		}
 		}}
