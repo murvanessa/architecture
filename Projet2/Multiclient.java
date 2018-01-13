@@ -40,7 +40,7 @@ public class Multiclient
 			System.out.println(" ");
 		}
 	}
-	public static void main(String[] args)
+	public static void main(String[] args) throws InterruptedException
     {
 		int nbrClient = Integer.parseInt(args[0]);
 		long[][] temp=new long[nbrClient*2][6];
@@ -152,6 +152,8 @@ public class Multiclient
 			                System.out.println("*****************************************************");
 			            }
 						V=V.substring(0, V.length()-2);
+						long nextArrival   = (long) (StdRandom.exp(rate)*1000);
+						Thread.sleep(nextArrival);
 					}
 					
 					in.close();
